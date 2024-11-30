@@ -1,0 +1,147 @@
+/* Login.css */
+
+/* Container Style */
+.login-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", Arial, sans-serif; /* Use a modern font if available */
+  background-color: #f7f7f7; /* Light background for better contrast */
+}
+
+/* Login Box Style */
+.login-box {
+  width: 100%;
+  max-width: 400px; /* Limit the max width */
+  background: #ffffff;
+  padding: 20px 30px;
+  box-shadow: 0px 6px 12px rgba(0, 128, 128, 0.15); /* Teal shadow */
+  border-radius: 10px;
+  text-align: center;
+  animation: fadeIn 0.8s ease-out; /* Fade-in animation */
+  transition: transform 0.3s ease-in-out; /* Smooth scaling effect on hover */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header Style */
+.login-box h2 {
+  margin-bottom: 20px;
+  font-size: 26px;
+  color: #1e415a; /* Deep slate blue */
+  font-weight: 600; /* Stronger font weight */
+}
+
+/* Form Layout */
+.login-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-box label {
+  font-size: 14px;
+  color: #41729f; /* Blue-gray */
+  margin-bottom: 5px;
+}
+
+.login-box input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #a3c4d4; /* Light blue-gray border */
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Focused Input Styles */
+.login-box input:focus {
+  border-color: #20c997; /* Sea green */
+  box-shadow: 0px 0px 4px rgba(32, 201, 151, 0.5); /* Matching shadow */
+}
+
+/* Button Styling */
+.login-box button {
+  padding: 12px;
+  font-size: 16px;
+  color: white;
+  background-color: #20c997; /* Vibrant sea green */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Button Hover State */
+.login-box button:hover {
+  background-color: #17a589; /* Slightly darker green for hover */
+}
+
+/* Button Active State */
+.login-box button:active {
+  background-color: #12806c; /* Even darker green for active state */
+  transform: scale(0.98); /* Slight "click" effect */
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 15px;
+    width: 90%; /* Allow for better fit on mobile devices */
+    box-shadow: 0px 4px 8px rgba(0, 128, 128, 0.1); /* Slightly smaller shadow for mobile */
+  }
+
+  .login-box h2 {
+    font-size: 22px; /* Smaller heading on mobile */
+  }
+
+  .login-box input {
+    padding: 8px;
+    font-size: 14px; /* Slightly smaller input fields */
+  }
+
+  .login-box button {
+    padding: 10px;
+    font-size: 14px; /* Smaller button on mobile */
+  }
+}
+
+/* Hover effect on login box */
+.login-box:hover {
+  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0px 8px 16px rgba(0, 128, 128, 0.2); /* Stronger shadow on hover */
+}
+
+/* OTP Input Styling */
+.otp-box {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.otp-box input {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  text-align: center;
+  border: 1px solid #a3c4d4; /* Light blue-gray border */
+  border-radius: 5px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.otp-box input:focus {
+  border-color: #20c997; /* Sea green */
+  box-shadow: 0px 0px 4px rgba(32, 201, 151, 0.5); /* Matching shadow */
+}

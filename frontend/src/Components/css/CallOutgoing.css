@@ -1,0 +1,39 @@
+.outgoing-call-box {
+    position: fixed;
+    top: 20%;
+    right: 20px;
+    width: 280px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    z-index: 1000;
+    text-align: center;
+  }
+  
+  .outgoing-call-content h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .call-cut-btn {
+    background-color: #f44336;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .call-cut-btn img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .call-cut-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(244, 67, 54, 0.5);
+  }
+  

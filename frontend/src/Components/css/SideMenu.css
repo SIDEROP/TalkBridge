@@ -1,0 +1,133 @@
+#SideMenuBox {
+  width: 400px;
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  z-index: 99;
+  position: absolute;
+}
+#SideMenuBox .menMenu {
+  background-color: white;
+  height: fit-content;
+  padding-block: 35px;
+  padding-right: 10px;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#SideMenuBox .menMenu menu {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+#SideMenuBox .menMenu i img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+#SideMenuBox .menMenu i img:hover {
+  transform: scale(0.9);
+}
+
+.useMenu {
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  width: 340px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #2c2c2c;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow-x: auto;
+}
+
+.useMenu::-webkit-scrollbar {
+  display: none;
+}
+
+.useMenu div {
+  width: 100%;
+  background-color: green;
+  height: 50px;
+}
+.user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #444;
+  padding: 0.8rem 1rem;
+
+  width: 100%;
+  max-width: 400px;
+  color: white;
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.user-item .nameUsers {
+  display: flex;
+  align-items: center;
+  font-size: 120%;
+}
+
+.user-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.call-button {
+  padding: 0.5rem 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.call-button:hover {
+  background-color: #45a049;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.call-button:active {
+  background-color: #388e3c;
+}
+
+@media (max-width: 768px) {
+  .useMenu {
+    padding: 0.5rem;
+  }
+
+  .user-item {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #SideMenuBox .menMenu {
+    transform: scale(0.7);
+  }
+  .menMenu {
+    left: -10px;
+    position: absolute;
+  }
+
+  .useMenu {
+    width: 300px;
+  }
+}
