@@ -25,7 +25,7 @@ app
   )
   .options("*", cors())
   .use(cookieParser())
-  .use(express.static("public"));
+  .use(express.static('dist'));
 
 // import routes
 import authRoutes from "./routes/auth.routes.js";

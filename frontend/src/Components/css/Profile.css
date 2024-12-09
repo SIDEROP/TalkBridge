@@ -1,16 +1,22 @@
-.side-menu {
-  width: 100%; /* Adjust the sidebar width */
+#mainProfile{
+  position: relative;
   height: 100%;
-  background-color: #2c2c2c; /* Dark background */
+
+}
+
+#mainProfile .side-menu {
+  width: 100%;
+  height: fit-content;
+  background-color: #2c2c2c;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
+
 }
 
-.profile-card {
+#mainProfile .profile-card {
   width: 100%;
   height: 100%;
   color: #fff;
@@ -21,11 +27,11 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.profile-avatar {
+#mainProfile .profile-avatar {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background-color: #4caf50; /* Green avatar background */
+  background-color: #4caf50;
   color: white;
   font-size: 2rem;
   display: flex;
@@ -34,13 +40,13 @@
   margin: 0 auto 15px;
 }
 
-.profile-name {
+#mainProfile .profile-name {
   font-size: 1.3rem;
   margin: 10px 0;
   font-weight: bold;
 }
 
-.profile-status {
+#mainProfile .profile-status {
   font-size: 1rem;
   padding: 5px 10px;
   margin-top: 5px;
@@ -48,17 +54,17 @@
   display: inline-block;
 }
 
-.profile-status.online {
+#mainProfile .profile-status.online {
   background-color: #4caf50; /* Green for online */
   color: white;
 }
 
-.profile-status.offline {
+#mainProfile .profile-status.offline {
   background-color: #f44336; /* Red for offline */
   color: white;
 }
 
-.profile-details {
+#mainProfile .profile-details {
   font-size: 0.9rem;
   background-color: rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -68,25 +74,35 @@
   height: fit-content;
   position: absolute;
   bottom: 0;
+  position: absolute;
 }
 
-.profile-details p {
+
+#mainProfile .profile-details p{
   margin: 5px 0;
   color: #ccc;
 }
+#mainProfile .profile-details .p {
+  margin: 5px 0;
+  color: #ccc;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-.profile-details strong {
+#mainProfile .profile-details strong {
   color: #fff;
 }
 
-.menu-icons {
+#mainProfile .menu-icons {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
 }
 
-.menu-icons img {
+#mainProfile .menu-icons img {
   width: 40px;
   height: 40px;
   margin: 10px 0;
@@ -94,6 +110,6 @@
   transition: transform 0.3s ease;
 }
 
-.menu-icons img:hover {
+#mainProfile .menu-icons img:hover {
   transform: scale(1.1);
 }
