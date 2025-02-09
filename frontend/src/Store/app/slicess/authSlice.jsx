@@ -3,7 +3,8 @@ import axios from "axios";
 let { VITE_API_URL } = import.meta.env;
 
 // Base URL for API calls
-const API_URL = VITE_API_URL || "http://localhost:4000/api/v1"
+// const API_URL = VITE_API_URL || "http://localhost:4000/api/v1"
+const API_URL = "https://talkbridge.onrender.com/api/v1"
 
 // Async thunk for login
 export const loginUser = createAsyncThunk(

@@ -4,7 +4,8 @@ import io from "socket.io-client";
 let { VITE_API_URL_SOCKET } = import.meta.env;
 
 // Base URL for API calls
-const API_URL = VITE_API_URL_SOCKET || "http://localhost:4000"
+// const API_URL = VITE_API_URL_SOCKET || "http://localhost:4000"
+const API_URL = "https://talkbridge.onrender.com/api/v1"
 
 const initialState = {
   socket: null,

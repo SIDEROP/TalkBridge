@@ -12,7 +12,7 @@ const RtcConnectProvider = ({ children }) => {
     const userId = "1232weiu421"; // Example userId (can be dynamically set)
 
     // Initialize Socket.IO client with userId in query
-    const newSocket = io("http://localhost:4000", {
+    const newSocket = io("https://talkbridge.onrender.com", {
       query: { userId }, // Use query to pass userId
     });
 
