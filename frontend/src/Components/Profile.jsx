@@ -1,8 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../Store/app/slicess/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { userData } = useSelector((state) => state.auth?.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <div className="relative h-full w-full bg-gradient-to-b from-gray-800 to-gray-900">
       <div className="w-full h-fit bg-[#2c2c2c] flex flex-col items-center p-4 md:p-6 shadow-lg gap-4">
@@ -21,7 +25,13 @@ const Profile = () => {
         </div>
       </div>
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-full max-w-sm px-4">
-        <button className="w-full text-base md:text-lg bg-red-500 hover:bg-red-600 text-white py-3 px-6 rounded-lg shadow-lg transition-all duration-300 flex items-center justify-center gap-3 hover:scale-105">
+        <button className="w-full text-base md:text-lg bg-red-500 hover:bg-red-600 text-white py-3 px-6 rounded-lg shadow-lg transition-all duration-300 flex items-center justify-center gap-3 hover:scale-105" onClick={() =>{
+          dispatch(
+            logoutUser()
+          ).unwrap().then(()=>{
+            navigate("/login")
+          })
+        } }>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M3 3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3zm12.293 4.293a1 1 0 0 1-1.414 1.414L12 6.414V13a1 1 0 1 1-2 0V6.414L8.121 8.293a1 1 0 0 1-1.414-1.414l4-4a1 1 0 0 1 1.414 0l4 4z" clipRule="evenodd" />
           </svg>

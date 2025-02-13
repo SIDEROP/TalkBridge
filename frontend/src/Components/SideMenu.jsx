@@ -31,21 +31,21 @@ const SideMenu = () => {
           <i onClick={() => setStep(1)} className="cursor-pointer transform hover:scale-110 transition-all duration-300">
             <img
               className="w-[45px] h-[45px] rounded-full border-2 border-white shadow-lg hover:border-yellow-400"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb9EzKnJiLunrAsbZI4eW573FBGd9RGqz53A&s"
+              src="https://cdn-icons-png.flaticon.com/512/3687/3687416.png"
               alt="Camera"
             />
           </i>
           <i onClick={() => setStep(2)} className="cursor-pointer transform hover:scale-110 transition-all duration-300">
             <img
               className="w-[45px] h-[45px] rounded-full border-2 border-white shadow-lg hover:border-yellow-400"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjHZanAhh49NAqgmmVYH-YH4GDLRIVF90pdUCsX8-OnVXwsPRHCZ2-Q3LJjJ0Br6RALRQ&usqp=CAU"
+              src="https://cdn-icons-png.flaticon.com/512/134/134914.png"
               alt="Chat"
             />
           </i>
           <i onClick={() => setStep(3)} className="cursor-pointer transform hover:scale-110 transition-all duration-300">
             <img
               className="w-[45px] h-[45px] rounded-full border-2 border-white shadow-lg hover:border-yellow-400"
-              src="https://static.thenounproject.com/png/1275974-200.png"
+              src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png"
               alt="Profile"
             />
           </i>

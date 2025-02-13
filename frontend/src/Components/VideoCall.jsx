@@ -125,7 +125,7 @@ const VideoCall = () => {
   }, [remoteStream]);
 
   return (
-    <div className="relative w-full h-screen bg-black flex items-center justify-center overflow-hidden">
+    <div className="relative w-full h-full bg-black flex items-center justify-center overflow-hidden">
       {outgoingCall?.show && (
         <CallOutgoing
           calleeName={outgoingCall?.callerName}
@@ -142,7 +142,7 @@ const VideoCall = () => {
       )}
 
       {/* Remote Video */}
-      <div className="w-full h-full relative">
+      <div className="w-full relative">
         <video ref={remoteVideoRef} autoPlay muted className="w-full h-full object-cover" />
         
         {incomingCall?.action && (
