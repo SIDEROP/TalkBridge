@@ -53,15 +53,37 @@ const Login = () => {
   }, [otpVerification]);
 
   const handleOtpChange = (e, index) => {
-    const newOtp = [...otp];
-    newOtp[index] = e.target.value;
+    const value = e.target.value;
+    if (value.length <= 1 && /^\d*$/.test(value)) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
 
-    if (e.target.value.length === 1 && index < otp.length - 1) {
-      document.getElementById(`otp-${index + 1}`).focus();
+      // Move focus forward when digit entered
+      if (value && index < 5) {
+        document.getElementById(`otp-${index + 1}`).focus();
+      }
+
+      // Submit automatically when all digits entered
+      if (value && index === 5) {
+        const otpString = newOtp.join("");
+        if (otpString.length === 6) {
+          verifyOtpAndLogin(newOtp);
+        }
+      }
     }
-
-    setOtp(newOtp);
   };
+
+  const handleKeyDown = (e, index) => {
+    // Handle backspace
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      const newOtp = [...otp];
+      newOtp[index - 1] = "";
+      setOtp(newOtp);
+      document.getElementById(`otp-${index - 1}`).focus();
+    }
+  };
+
   const verifyOtpAndLogin = async (otp) => {
     try {
       const otpString = otp.join("");
@@ -75,11 +97,13 @@ const Login = () => {
           "OTP verification failed:",
           result.payload?.message || "Unknown error"
         );
-        alert("Invalid OTP. Please try again.");
+        setAlertMessage("Invalid OTP. Please try again.");
+        setShowAlert(true);
       }
     } catch (error) {
       console.error("An error occurred during OTP verification:", error);
-      alert("Something went wrong. Please try again later.");
+      setAlertMessage("Something went wrong. Please try again later.");
+      setShowAlert(true);
     }
   };
 
@@ -101,28 +125,6 @@ const Login = () => {
       }
     } else {
       setAlertMessage("Please enter a valid email address.");
-      setShowAlert(true);
-    }
-  };
-
-  const handleOtpSubmit = async (e) => {
-    e.preventDefault();
-    const currentTime = Date.now();
-    if (otpExpiration && currentTime > otpExpiration) {
-      setAlertMessage("OTP has expired. Please request a new one.");
-      setShowAlert(true);
-      return;
-    }
-
-    if (otp.join("").length === 6) {
-      try {
-        await verifyOtpAndLogin(otp);
-      } catch (error) {
-        setAlertMessage("Invalid OTP. Please try again.");
-        setShowAlert(true);
-      }
-    } else {
-      setAlertMessage("Please enter a valid 6-digit OTP.");
       setShowAlert(true);
     }
   };
@@ -176,13 +178,13 @@ const Login = () => {
               />
             </div>
             <button type="submit">
-              {otpGeneration?.loading ? "Loding..." : "Send OTP"}
+              {otpGeneration?.loading ? "Loading..." : "Send OTP"}
             </button>
           </form>
         )}
 
         {step === 2 && (
-          <form onSubmit={handleOtpSubmit}>
+          <form>
             <div className="otp-box">
               {otp.map((digit, index) => (
                 <input
@@ -191,21 +193,12 @@ const Login = () => {
                   type="text"
                   value={digit}
                   onChange={(e) => handleOtpChange(e, index)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
                   maxLength="1"
-                  pattern="[0-9]*"
-                  required
                   autoFocus={index === 0}
                 />
               ))}
             </div>
-            <button
-              type="submit"
-              disabled={countdown === 0 || otpVerification.loading}
-            >
-              {
-                otpVerification?.loading?"Loding":"Verify OTP"
-              }
-            </button>
             <div className="timer">
               <p>Time left: {countdown}s</p>
             </div>
@@ -224,9 +217,7 @@ const Login = () => {
               />
             </div>
             <button type="submit">
-              {
-                false?"Loding":"Submit Username"
-              }
+              {auth?.loading ? "Loading..." : "Submit Username"}
             </button>
           </form>
         )}

@@ -156,7 +156,7 @@ const authSlice = createSlice({
     allUsers: {
       loading: false,
       error: null,
-      users: null,
+      users: [],
     },
   },
   reducers: {

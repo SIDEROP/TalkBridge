@@ -10,7 +10,6 @@ import {
   stopTimer,
   incrementTimer,
 } from "../Store/app/slicess/streamSlice";
-import "./css/VideoCall.css";
 import CallIncoming from "./CallIncoming";
 import CallOutgoing from "./CallOutgoing";
 
@@ -62,16 +61,15 @@ const VideoCall = () => {
         action: "normal",
       })
     );
-    dispatch(startTimer()); // Start timer
+    dispatch(startTimer());
     const answer = await peerConnect.createAnswer();
     await peerConnect.setLocalDescription(answer);
     socket.emit("send_answer", { answer, targetUserId: incomingCall?.userId });
-
   };
 
   // Handle declining a call
   const handleDecline = () => {
-    dispatch(stopTimer()); // Stop timer
+    dispatch(stopTimer());
     dispatch(
       setIncoming({
         callerName: null,
@@ -114,14 +112,12 @@ const VideoCall = () => {
     socket.emit("end_call", { targetUserId: outgoingCall?.userId });
   };
 
-  // Attach the local stream to the local video element
   useEffect(() => {
     if (localVideoRef.current && localStream) {
       localVideoRef.current.srcObject = localStream;
     }
   }, [localStream]);
 
-  // Attach the remote stream to the remote video element
   useEffect(() => {
     if (remoteVideoRef.current && remoteStream) {
       remoteVideoRef.current.srcObject = remoteStream;
@@ -129,8 +125,7 @@ const VideoCall = () => {
   }, [remoteStream]);
 
   return (
-    <div className="VideoCall">
-      {/* Outgoing Call Popup */}
+    <div className="relative w-full h-screen bg-black flex items-center justify-center overflow-hidden">
       {outgoingCall?.show && (
         <CallOutgoing
           calleeName={outgoingCall?.callerName}
@@ -138,7 +133,6 @@ const VideoCall = () => {
         />
       )}
 
-      {/* Incoming Call Popup */}
       {incomingCall?.show && (
         <CallIncoming
           callerName={incomingCall?.callerName}
@@ -147,123 +141,107 @@ const VideoCall = () => {
         />
       )}
 
-      <div className="remote-video">
-        <video ref={remoteVideoRef} autoPlay muted />
+      {/* Remote Video */}
+      <div className="w-full h-full relative">
+        <video ref={remoteVideoRef} autoPlay muted className="w-full h-full object-cover" />
+        
         {incomingCall?.action && (
-          <div className="call-end-message" >
-            <h4>
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+            <h4 className="text-white text-2xl font-semibold">
               {incomingCall.action === "decline"
-                ? "Call Decline.."
+                ? "Call Declined"
                 : incomingCall.action === "puse"
-                ? "Call Paused.."
+                ? "Call Paused"
                 : incomingCall.action === "mute"
-                ? "Call Muted.."
+                ? "Call Muted"
                 : ""}
             </h4>
           </div>
         )}
+        
         {outgoingCall?.action && (
-          <div className="call-end-message">
-            <h4>
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+            <h4 className="text-white text-2xl font-semibold">
               {outgoingCall.action === "callend"
-                ? "Call Ended.."
+                ? "Call Ended"
                 : outgoingCall.action === "puse"
-                ? "Call Paused.."
+                ? "Call Paused"
                 : outgoingCall.action === "mute"
-                ? "Call Muted.."
+                ? "Call Muted"
                 : ""}
             </h4>
           </div>
         )}
       </div>
 
-      <div className="local-video">
-        <video ref={localVideoRef} autoPlay muted />
+      {/* Local Video */}
+      <div className="absolute top-4 right-4 w-32 h-48 sm:w-48 sm:h-64 rounded-2xl overflow-hidden shadow-lg">
+        <video ref={localVideoRef} autoPlay muted className="w-full h-full object-cover" />
         {(isMuted || isVideoStopped) && (
-          <div className="call-end-message">
-            <h4>
-              {isMuted && isVideoStopped ? (
-                "stope video"
-              ) : (
-                <>
-                  {isMuted && "Call Muted.. "}
-                  {isVideoStopped && "Call Paused.."}
-                </>
-              )}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+            <h4 className="text-white text-sm sm:text-base font-medium text-center px-2">
+              {isMuted && isVideoStopped
+                ? "Video Stopped"
+                : <>
+                    {isMuted && "Muted"}
+                    {isVideoStopped && "Video Paused"}
+                  </>
+              }
             </h4>
           </div>
         )}
       </div>
 
-      {/* Control Buttons */}
-      <div className="controls">
+      {/* Controls */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-6 bg-black/30 backdrop-blur-md px-6 py-4 rounded-full">
         {outgoingCall?.show ? null : outgoingCall?.action === "outgoing" ||
           incomingCall?.action === "answer" ? (
-          <>
-            {/* Timer */}
-            <div className="call-timer" style={{ color: "green" }}>
-              {Math.floor(callDuration / 60)}:
-              {String(callDuration % 60).padStart(2, "0")}
-            </div>
-          </>
+          <div className="text-green-400 font-semibold">
+            {Math.floor(callDuration / 60)}:{String(callDuration % 60).padStart(2, "0")}
+          </div>
         ) : null}
 
-        {/* outgoingCall btn */}
-        {outgoingCall?.show ? null : outgoingCall?.action === "outgoing" ? (
-          <i onClick={() => handleCallEnd()}>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLZ_cZ6cdJ5D3Eq1euwXiqPpYLdLBzuPvw_g&s" />
-          </i>
-        ) : null}
+        {outgoingCall?.show ? null : outgoingCall?.action === "outgoing" && (
+          <button onClick={handleCallEnd} className="p-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        )}
 
-        {/* outgoingCall btn */}
-        {incomingCall?.show ? null : incomingCall?.action === "answer" ? (
-          <i onClick={() => handleDecline()}>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLZ_cZ6cdJ5D3Eq1euwXiqPpYLdLBzuPvw_g&s" />
-          </i>
-        ) : null}
+        {incomingCall?.show ? null : incomingCall?.action === "answer" && (
+          <button onClick={handleDecline} className="p-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        )}
 
-        <i
+        <button
           onClick={() => {
             dispatch(toggleMute());
             socket.emit("isMuted", { isMuted, targetUserId: isCallId });
             socket.emit("isMutedOut", { isMuted, targetUserId: incomingCall?.userId });
           }}
+          className={`p-3 rounded-full ${isMuted ? 'bg-red-500' : 'bg-gray-600'} hover:opacity-90 transition-opacity`}
         >
-          {isMuted ? (
-            <img
-              src="https://w7.pngwing.com/pngs/627/94/png-transparent-microphone-icon-symbol-sign-design-mic-music-muted-muffled-sound-thumbnail.png"
-              alt="Mute"
-            />
-          ) : (
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_BZcUpDC4QhQsv42rnLddItuaJM1hJuhADQ&s"
-              alt="Unmute"
-            />
-          )}
-        </i>
-        <i
-          onClick={() => {
-            socket.emit("isVideoStopped", {
-              isVideoStopped,
-              targetUserId: isCallId,
-            });
-            socket.emit("isVideoStoppedOut", { isMuted, targetUserId: incomingCall?.userId });
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+          </svg>
+        </button>
 
+        <button
+          onClick={() => {
+            socket.emit("isVideoStopped", { isVideoStopped, targetUserId: isCallId });
+            socket.emit("isVideoStoppedOut", { isMuted, targetUserId: incomingCall?.userId });
             dispatch(toggleVideo());
           }}
+          className={`p-3 rounded-full ${isVideoStopped ? 'bg-red-500' : 'bg-gray-600'} hover:opacity-90 transition-opacity`}
         >
-          {isVideoStopped ? (
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKx5dOaGnOCUQxYXozyhrgEjAWyEoreM9hUaZyMLm3jIniwGIdVUxygg7I4ev_MouI40g&usqp=CAU"
-              alt="Start Video"
-            />
-          ) : (
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/190/190523.png"
-              alt="Stop Video"
-            />
-          )}
-        </i>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+        </button>
       </div>
     </div>
   );
